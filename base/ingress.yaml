@@ -10,13 +10,6 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: api
-                port:
-                  number: 3000
           - path: /
             pathType: Prefix
             backend:
@@ -24,3 +17,10 @@ spec:
                 name: frontend
                 port:
                   number: 6001
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 3000
