@@ -21,7 +21,7 @@ spec:
           ports:
             - containerPort: 6001
           env:
-            - name: NEXT_PUBLIC_API_BACKEND
+            - name: API_BACKEND_URL
               value: "http://api:3000"
 ---
 apiVersion: v1
