@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-worker-pjid
+  namespace: penguincrm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-worker-pjid
+  template:
+    metadata:
+      labels:
+        app: api-worker-pjid
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: worker
+          image: ghcr.io/saigear99/penguincrm-api:latest
+          command: ["node", "job_pjid.js"]
+
+          # Health Check ยิงไปที่ Port 3002
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3002
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          envFrom:
+            - secretRef:
+                name: api-secrets
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: ES_INDEX_NAME
+              value: "emails_pjid_search"
+            - name: MS_GRAPH_TENANT_ID
+              value: "5ed8e9fb-d4b9-4deb-8823-0adf1b93d6d8"
+            - name: MS_GRAPH_CLIENT_ID
+              value: "cab85096-3c2c-43f6-ae3a-1cd502116289"
+            - name: DOC_AI_PROCESSOR_ID
+              value: "1a3f78805d1e9c3"
+            - name: GCP_PROJECT_ID
+              value: "gen-lang-client-0428922778"
