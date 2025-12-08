@@ -21,8 +21,21 @@ spec:
           ports:
             - containerPort: 6001
           env:
+            # ✅ 1. Port ที่ Next.js จะรัน (ตรงกับ containerPort)
+            - name: PORT
+              value: "6001"
+
+            # ✅ 2. สำหรับ Next.js คุยกับ Backend ภายใน Cluster (Server Side Rendering)
+            # ใช้ชื่อ Service ใน K8s ได้เลย เร็วและปลอดภัยกว่า
             - name: API_BACKEND_URL
               value: "http://api:3000"
+
+            # ✅ 3. สำหรับ Browser คุยกับ Backend (Client Side / Axios)
+            # ⚠️ สำคัญ: ต้องเป็น IP เครื่อง Server จริง (Node IP) และ Port ที่ API เปิด (NodePort 30000)
+            # Browser ลูกค้าจะเข้าถึงผ่าน URL นี้
+            - name: NEXT_PUBLIC_API_BASE_URL
+              value: "http://172.16.51.138:30000" 
+
 ---
 apiVersion: v1
 kind: Service
