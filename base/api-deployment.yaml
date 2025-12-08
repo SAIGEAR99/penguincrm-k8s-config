@@ -1,6 +1,3 @@
-# -----------------------------
-# 1. API (Backend) Deployment
-# -----------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,13 +20,9 @@ spec:
           image: ghcr.io/saigear99/penguincrm-api:latest
           ports:
             - containerPort: 3000
-          
-          # ✅ ดึงความลับทั้งหมดจาก K8s Secret ที่เราสร้างในข้อ 2
           envFrom:
             - secretRef:
                 name: api-secrets
-
-          # ✅ Config ทั่วไป (ไม่เป็นความลับ) ใส่ตรงนี้ได้
           env:
             - name: NODE_ENV
               value: "production"
@@ -45,10 +38,8 @@ spec:
               value: "1a3f78805d1e9c3"
             - name: GCP_PROJECT_ID
               value: "gen-lang-client-0428922778"
-            
-            # บอก Backend ว่า Frontend อยู่ไหน (เผื่อใช้ Redirect)
             - name: NEXT_PUBLIC_API_BACKEND
-              value: "http://api:3000" 
+              value: "http://api:3000"
             - name: NEXT_PUBLIC_API_BASE_URL
               value: "http://172.16.51.138:5001"
 
@@ -68,9 +59,6 @@ spec:
     app: api
 
 ---
-# -----------------------------
-# 2. Frontend Deployment
-# -----------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -94,11 +82,13 @@ spec:
           ports:
             - containerPort: 6001
           env:
-            # ใช้ Internal Service Domain คุยกันเองใน K8s
-            - name: API_BACKEND_URL
-              value: "http://api:3000"
             - name: PORT
               value: "6001"
+            - name: API_BACKEND_URL
+              value: "http://api:3000"
+            - name: NEXT_PUBLIC_API_BASE_URL
+              value: "http://172.16.51.138:30000"
+
 ---
 apiVersion: v1
 kind: Service
