@@ -12,6 +12,11 @@ spec:
     metadata:
       labels:
         app: api
+      # ✅ ส่วนที่เพิ่ม: บอก Prometheus ให้มาเก็บข้อมูลที่นี่
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "3000"
     spec:
       imagePullSecrets:
         - name: ghcr-secret
