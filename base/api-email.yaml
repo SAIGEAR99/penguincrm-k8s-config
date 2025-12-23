@@ -18,7 +18,7 @@ spec:
       containers:
         - name: worker
           image: ghcr.io/saigear99/penguincrm-api:latest
-          command: ["node", "job_email.js"]
+          command: ["npx", "tsx","job_email.ts"]
           
           # Health Check ยิงไปที่ Port 3001
           livenessProbe:

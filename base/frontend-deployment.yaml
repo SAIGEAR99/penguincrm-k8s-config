@@ -34,7 +34,7 @@ spec:
             # ⚠️ สำคัญ: ต้องเป็น IP เครื่อง Server จริง (Node IP) และ Port ที่ API เปิด (NodePort 30000)
             # Browser ลูกค้าจะเข้าถึงผ่าน URL นี้
             - name: NEXT_PUBLIC_API_BASE_URL
-              value: "http://172.16.51.138:30000" 
+              value: "http://192.168.2.37:30000" 
 
 ---
 apiVersion: v1
