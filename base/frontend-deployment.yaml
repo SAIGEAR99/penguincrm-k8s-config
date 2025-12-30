@@ -17,7 +17,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: frontend
-          image: ghcr.io/saigear99/penguincrm-frontend:9e59871679470154a4379644d5b86bbe68f451ff
+          image: ghcr.io/saigear99/penguincrm-frontend:eefb1c3f0bf7bfb1be173a2db0c42371f9291dc1
           ports:
             - containerPort: 6001
           env:
