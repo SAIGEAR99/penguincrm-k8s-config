@@ -5,6 +5,7 @@ metadata:
   namespace: penguincrm
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    traefik.ingress.kubernetes.io/router.tls.options: penguincrm-securetls@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
