@@ -47,6 +47,8 @@ spec:
               value: "http://api:3000"
             - name: NEXT_PUBLIC_API_BASE_URL
               value: "http://192.168.2.37:5001"
+            - name: FRONTEND_URL
+              value: "http://192.168.2.37,http://192.168.2.39,http://localhost"
 
 ---
 apiVersion: v1
