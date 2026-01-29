@@ -12,7 +12,6 @@ spec:
     metadata:
       labels:
         app: api
-      # ✅ ส่วนที่เพิ่ม: บอก Prometheus ให้มาเก็บข้อมูลที่นี่
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/metrics"
@@ -49,6 +48,9 @@ spec:
               value: "http://192.168.2.37:5001"
             - name: FRONTEND_URL
               value: "http://192.168.2.37,http://192.168.2.39,http://localhost"
+            # Python RAG Service (K8s internal)
+            - name: PYTHON_RAG_API_URL
+              value: "http://python:5000"
 
 ---
 apiVersion: v1
