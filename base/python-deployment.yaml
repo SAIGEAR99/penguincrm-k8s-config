@@ -38,6 +38,12 @@ spec:
               value: "8000"
             - name: CHROMA_COLLECTION
               value: "langchain"
+            - name: CHROMA_USE_SERVER
+              value: "true"
+            - name: CHROMA_SERVER_HOST
+              value: "192.168.2.36"
+            - name: CHROMA_SERVER_PORT
+              value: "8000"
             
             # ===== MinIO (External VM: 192.168.2.36) =====
             - name: MINIO_ENDPOINT
