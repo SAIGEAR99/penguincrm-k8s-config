@@ -47,7 +47,7 @@ spec:
             - name: NEXT_PUBLIC_API_BASE_URL
               value: "http://192.168.2.37:5001"
             - name: FRONTEND_URL
-              value: "http://192.168.2.37,http://192.168.2.39,http://localhost"
+              value: "http://192.168.2.37,http://192.168.2.39,http://localhost,http://pre-sales-sys.got.co.th"
             # Python RAG Service (K8s internal)
             - name: PYTHON_RAG_API_URL
               value: "http://python:5000"
