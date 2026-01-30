@@ -7,15 +7,33 @@ metadata:
     # Traefik: ตั้งค่า buffering สำหรับ request body ขนาดใหญ่ (50MB)
     traefik.ingress.kubernetes.io/buffering: |
       maxRequestBodyBytes: 52428800
-    # Traefik: เพิ่ม timeout สำหรับ upload ขนาดใหญ่
-    traefik.ingress.kubernetes.io/router.middlewares: ""
+    # Traefik: เพิ่ม timeout สำหรับ long-running requests (10 นาที = 600 วินาที)
+    traefik.ingress.kubernetes.io/service.serversTransport: |
+      responseHeaderTimeout: 600s
+      idleConnTimeout: 600s
 spec:
   ingressClassName: traefik
   rules:
     - http:
         paths:
-          # RAG uploads - route directly to API (bypass Next.js 10MB limit)
+          # RAG uploads - route directly to API (bypass Next.js timeout)
           - path: /api/proxy/presale/rag
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 3000
+          # TOR-BOM - route directly to API (long-running, needs 10+ min)
+          - path: /api/proxy/presale/tor-bom
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 3000
+          # Comply - route directly to API (long-running)
+          - path: /api/proxy/presale/compile-projects
             pathType: Prefix
             backend:
               service:
