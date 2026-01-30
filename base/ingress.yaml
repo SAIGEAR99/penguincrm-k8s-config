@@ -4,12 +4,25 @@ metadata:
   name: penguincrm-ingress
   namespace: penguincrm
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    # Traefik: ตั้งค่า buffering สำหรับ request body ขนาดใหญ่ (50MB)
+    traefik.ingress.kubernetes.io/buffering: |
+      maxRequestBodyBytes: 52428800
+    # Traefik: เพิ่ม timeout สำหรับ upload ขนาดใหญ่
+    traefik.ingress.kubernetes.io/router.middlewares: ""
 spec:
   ingressClassName: traefik
   rules:
     - http:
         paths:
+          # RAG uploads - route directly to API (bypass Next.js 10MB limit)
+          - path: /api/proxy/presale/rag
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 3000
+          # Other proxy requests - go through Next.js
           - path: /api/proxy
             pathType: Prefix
             backend:
