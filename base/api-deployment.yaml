@@ -51,6 +51,27 @@ spec:
             # Python RAG Service (K8s internal)
             - name: PYTHON_RAG_API_URL
               value: "http://python:5000"
+            # ⚠️ ragController.ts uses PYTHON_RAG_URL (not PYTHON_RAG_API_URL)
+            - name: PYTHON_RAG_URL
+              value: "http://python:5000/rag"
+            # MinIO Configuration
+            - name: MINIO_ENDPOINT
+              value: "192.168.2.36"
+            - name: MINIO_PORT
+              value: "9000"
+            - name: MINIO_BUCKET
+              value: "penguin-crm"
+            - name: MINIO_USE_SSL
+              value: "false"
+            # MinIO credentials
+            - name: MINIO_ACCESS_KEY
+              value: "penguin_minio"
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: MINIO_SECRET_KEY
+                  optional: true
 
 ---
 apiVersion: v1
