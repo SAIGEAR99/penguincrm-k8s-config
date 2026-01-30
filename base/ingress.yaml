@@ -18,6 +18,14 @@ spec:
                 name: api
                 port:
                   number: 3000
+          # Legacy RAG path - route directly to API (not through Next.js proxy)
+          - path: /api/proxy/presale/rag
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 3000
           # Existing proxy path (keep for backward compatibility)
           - path: /api/proxy
             pathType: Prefix
