@@ -47,7 +47,11 @@ spec:
             
             # ===== MinIO (External VM: 192.168.2.36) =====
             - name: MINIO_ENDPOINT
-              value: "192.168.2.36:9000"
+              value: "192.168.2.36"
+            - name: MINIO_PORT
+              value: "9000"
+            - name: MINIO_BUCKET
+              value: "penguin-crm"
             - name: MINIO_BUCKET_NAME
               value: "penguincrm"
             - name: MINIO_USE_SSL
