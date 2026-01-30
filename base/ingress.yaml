@@ -10,7 +10,6 @@ spec:
   rules:
     - http:
         paths:
-          # Proxy path - routes through Next.js frontend (has 10MB limit)
           - path: /api/proxy
             pathType: Prefix
             backend:
@@ -18,7 +17,6 @@ spec:
                 name: frontend
                 port:
                   number: 6001
-          # Direct API access - bypasses Next.js, supports large file uploads (50MB+)
           - path: /api
             pathType: Prefix
             backend:
@@ -26,7 +24,6 @@ spec:
                 name: api
                 port:
                   number: 3000
-          # Frontend
           - path: /
             pathType: Prefix
             backend:
