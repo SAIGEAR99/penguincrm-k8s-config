@@ -54,6 +54,18 @@ spec:
             # ⚠️ ragController.ts uses PYTHON_RAG_URL (not PYTHON_RAG_API_URL)
             - name: PYTHON_RAG_URL
               value: "http://python:5000/rag"
+            # Python API URL for torBomController.ts, projectController.ts, compileProjectController.ts
+            - name: PYTHON_API_URL
+              value: "http://python:5000"
+            # Python Server URL for ragController.ts (batch operations)
+            - name: PYTHON_SERVER_URL
+              value: "http://python:5000"
+            # Python API Base URL for ServerRecController.ts, ClientRecController.ts
+            - name: PYTHON_API_BASE_URL
+              value: "http://python:5000"
+            # Python Verifier URL for ServerRecController.ts
+            - name: PYTHON_VERIFIER_BASE_URL
+              value: "http://python:5000"
             # MinIO Configuration
             - name: MINIO_ENDPOINT
               value: "192.168.2.36"
