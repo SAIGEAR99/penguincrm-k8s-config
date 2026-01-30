@@ -10,13 +10,23 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/proxy
+          # Direct path for RAG uploads (bypass Next.js to avoid 10MB limit)
+          - path: /api/rag
             pathType: Prefix
             backend:
               service:
                 name: api
                 port:
                   number: 3000
+          # Existing proxy path (keep for backward compatibility)
+          - path: /api/proxy
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 6001
+          # Direct API access
           - path: /api
             pathType: Prefix
             backend:
@@ -24,6 +34,7 @@ spec:
                 name: api
                 port:
                   number: 3000
+          # Frontend
           - path: /
             pathType: Prefix
             backend:
