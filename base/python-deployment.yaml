@@ -1,13 +1,10 @@
-# ==============================================================================
-# PenguinCRM Python Server Kubernetes Deployment
-# ==============================================================================
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: python
   namespace: penguincrm
 spec:
-  replicas: 1  # AI workloads need more resources, keep 1 replica
+  replicas: 0
   selector:
     matchLabels:
       app: python
@@ -31,58 +28,7 @@ spec:
             - secretRef:
                 name: python-secrets
           env:
-            # ===== ChromaDB (External VM: 192.168.2.36) =====
-            - name: CHROMA_HOST
-              value: "192.168.2.36"
-            - name: CHROMA_PORT
-              value: "8000"
-            - name: CHROMA_COLLECTION
-              value: "langchain"
-            - name: CHROMA_USE_SERVER
-              value: "true"
-            - name: CHROMA_SERVER_HOST
-              value: "192.168.2.36"
-            - name: CHROMA_SERVER_PORT
-              value: "8000"
-            
-            # ===== MinIO (External VM: 192.168.2.36) =====
-            - name: MINIO_ENDPOINT
-              value: "192.168.2.36"
-            - name: MINIO_PORT
-              value: "9000"
-            - name: MINIO_BUCKET
-              value: "penguin-crm"
-            - name: MINIO_BUCKET_NAME
-              value: "penguincrm"
-            - name: MINIO_USE_SSL
-              value: "false"
-            
-            # ===== Embedding =====
-            - name: EMBEDDING_MODEL
-              value: "BAAI/bge-base-en-v1.5"
-            - name: EMBEDDING_DEVICE
-              value: "cpu"
-            - name: RAG_EMBEDDING_MODEL
-              value: "sentence-transformers/all-mpnet-base-v2"
-            
-            # ===== RAG Configuration =====
-            - name: CONTEXT_BUDGET_TOKENS
-              value: "2500"
-            - name: QUERY_EMBED_CACHE_SIZE
-              value: "2048"
-            - name: RAG_ENABLED
-              value: "true"
-            
-            # ===== Server =====
-            - name: DEBUG
-              value: "false"
-            - name: MAX_CONTENT_LENGTH
-              value: "52428800"
 
----
-# ==============================================================================
-# Service - NodePort 30002
-# ==============================================================================
 apiVersion: v1
 kind: Service
 metadata:
