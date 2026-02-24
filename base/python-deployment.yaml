@@ -29,7 +29,7 @@ spec:
               memory: "1Gi"
               cpu: "100m"
             limits:
-              memory: "2560Mi"
+              memory: "3Gi"
               cpu: "500m"
           envFrom:
             - secretRef:
