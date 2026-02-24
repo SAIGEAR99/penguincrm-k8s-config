@@ -4,7 +4,7 @@ metadata:
   name: python
   namespace: penguincrm
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: python
@@ -24,10 +24,17 @@ spec:
           image: ghcr.io/saigear99/penguincrm-python:latest
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
           envFrom:
             - secretRef:
                 name: python-secrets
-          env:
+---
 
 apiVersion: v1
 kind: Service
